@@ -20,3 +20,20 @@ export const createUser = asynchandler(async (req, res) => {
   });
   res.status(200).json(user);
 });
+
+export const getUserProfile = asynchandler(async (req, res) => {
+  // get user profile ID
+  const { id } = req.params;
+
+  // now get single user profile data
+  const data = await prisma.user.findUnique({
+    where: { id },
+    include: {
+      onosoronKari: { include: { following: true } },
+      onosoronKori: { include: { follower: true } },
+    },
+  });
+
+  // send response
+  res.status(200).json(data);
+});
