@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import colors from "colors";
+import userRouter from "./router/user.js";
 
 // env vars
 dotenv.config();
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // routing
+app.use("/api/v1/user", userRouter);
 
 // server listen
 app.listen(PORT, () => {
